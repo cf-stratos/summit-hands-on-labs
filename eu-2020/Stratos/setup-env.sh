@@ -25,7 +25,7 @@ function install_tools() {
 }
 
 function cluster_zone() {
-  if [[ $((SEAT)) < 50 ]]; then
+  if [[ $((SEAT)) -le 50 ]]; then
     echo "europe-west3-a"
   else
     echo "europe-west3-b"
@@ -45,7 +45,7 @@ function target_cluster() {
 
 function create_kube_token() {
   cecho ${CYAN} "Creating Kube Service Access Token..."
-  
+
   local NS="kube-system"
 
   kubectl apply -n $NS -f service-account.yaml
@@ -101,7 +101,7 @@ function update_readme() {
   rm ${README_TEMP_FILE}
   cloudshell launch-tutorial ${README_FILE}
   echo
-} 
+}
 
 function main() {
   if [ -z "$1" ] ; then
@@ -128,7 +128,7 @@ function main() {
   create_kube_token
   print_details
   create_source_file
-  update_readme 
+  update_readme
 
   cecho ${CYAN} "Set up complete"
 }
